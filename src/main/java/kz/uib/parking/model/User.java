@@ -1,17 +1,14 @@
 package kz.uib.parking.model;
 
-import java.util.UUID;
-
 /**
  * @author Sanzhar Aubakirov (c0rp.aubakirov@gmail.com)
  */
-public class User {
-
-    String id; // UUID пользователя. Должно генерится во время создания ровно один раз
+public class User extends AbstractModel {
 
     String login;
     String password;
     String email;
+    String nickname;
     Double balance; // количество денег
 
     //... и т.д.

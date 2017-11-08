@@ -5,9 +5,7 @@ import java.util.Date;
 /**
  * @author Sanzhar Aubakirov (c0rp.aubakirov@gmail.com)
  */
-public class Token {
-
-    String id; // UUID токена. Должно генерится во время создания ровно один раз
+public class Token extends AbstractModel {
 
     // Кому был выдан токен
     User user;
