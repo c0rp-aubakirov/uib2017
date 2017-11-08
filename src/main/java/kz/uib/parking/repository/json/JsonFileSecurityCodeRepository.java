@@ -1,4 +1,4 @@
-package kz.uib.parking.repository;
+package kz.uib.parking.repository.json;
 
 import kz.uib.parking.model.SecurityCode;
 import kz.uib.parking.repository.interfaces.SecurityCodeRepositoryInterface;

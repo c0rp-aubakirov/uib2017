@@ -1,4 +1,4 @@
-package kz.uib.parking.repository;
+package kz.uib.parking.repository.json;
 
 import java.util.List;
 import kz.uib.parking.repository.interfaces.RepositoryInterface;

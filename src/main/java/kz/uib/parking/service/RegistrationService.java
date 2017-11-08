@@ -2,7 +2,7 @@ package kz.uib.parking.service;
 
 import kz.uib.parking.model.SecurityCode;
 import kz.uib.parking.model.User;
-import kz.uib.parking.repository.JsonFileUserRepository;
+import kz.uib.parking.repository.json.JsonFileUserRepository;
 import kz.uib.parking.repository.interfaces.SecurityCodeRepositoryInterface;
 import kz.uib.parking.repository.interfaces.UserRepositoryInterface;
 
