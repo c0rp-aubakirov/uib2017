@@ -1,6 +1,6 @@
 package kz.uib.parking.repository.interfaces;
 
-import java.util.List;
+import kz.uib.parking.exception.UserNotFoundException;
 import kz.uib.parking.model.User;
 
 /**
@@ -10,4 +10,6 @@ public interface UserRepositoryInterface extends RepositoryInterface<User> {
 
     public User findUserByPhoneNumber(String phoneNumber);
 
+    void updateUserPassword(final String userId,
+        final String sha512Password) throws UserNotFoundException;
 }

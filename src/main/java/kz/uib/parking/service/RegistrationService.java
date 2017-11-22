@@ -1,25 +1,23 @@
 package kz.uib.parking.service;
 
+import kz.uib.parking.exception.UserNotFoundException;
 import kz.uib.parking.model.SecurityCode;
 import kz.uib.parking.model.User;
-import kz.uib.parking.repository.json.JsonFileUserRepository;
 import kz.uib.parking.repository.interfaces.SecurityCodeRepositoryInterface;
 import kz.uib.parking.repository.interfaces.UserRepositoryInterface;
+import kz.uib.parking.repository.json.JsonFileSecurityCodeRepository;
+import kz.uib.parking.repository.json.JsonFileUserRepository;
 
 /**
  * @author Sanzhar Aubakirov (c0rp.aubakirov@gmail.com)
  */
 public class RegistrationService {
 
-    private final UserRepositoryInterface userRepository;
-    private final SecurityCodeRepositoryInterface securityCodeRepository;
+    private final UserRepositoryInterface userRepository =
+        new JsonFileUserRepository("");
+    private final SecurityCodeRepositoryInterface securityCodeRepository = new JsonFileSecurityCodeRepository("");
 
-    public RegistrationService(
-        final JsonFileUserRepository userRepository,
-        final SecurityCodeRepositoryInterface securityCodeRepository) {
-        this.userRepository = userRepository;
-        this.securityCodeRepository = securityCodeRepository;
-    }
+    public RegistrationService(){}
 
     /** Метод должен создать нового юзера и создать новый security code. Юзер пока без пароля
      *
@@ -39,11 +37,20 @@ public class RegistrationService {
      * Проверяет есть ли у этого юзера такой security code в базе данных
      * @param securityCode сам код
      * @param phoneNumber номер юзера, он же логин
-     * @return true или false
+     * @param sha512password
      */
-    public Boolean checkSecurityCodeValid(final String securityCode, final String phoneNumber) {
+    public void checkSecurityCodeValid(final String securityCode,
+        final String phoneNumber, final String sha512password) throws UserNotFoundException {
+
         final User userByPhoneNumber = userRepository.findUserByPhoneNumber(phoneNumber);
-        return securityCodeRepository.checkIfUserSecurityCode(securityCode, userByPhoneNumber.getId());
+
+        final Boolean isValid = securityCodeRepository.checkIfUserSecurityCode(securityCode, userByPhoneNumber.getId());
+
+        if (isValid) {
+            userRepository.updateUserPassword(userByPhoneNumber.getId(), sha512password);
+        } else {
+            throw new IllegalStateException();
+        }
     }
 
     /**

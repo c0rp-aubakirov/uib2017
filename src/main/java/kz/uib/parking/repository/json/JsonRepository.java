@@ -1,5 +1,6 @@
 package kz.uib.parking.repository.json;
 
+import com.google.gson.Gson;
 import java.util.List;
 import kz.uib.parking.repository.interfaces.RepositoryInterface;
 
@@ -8,6 +9,7 @@ import kz.uib.parking.repository.interfaces.RepositoryInterface;
  */
 public abstract class JsonRepository<T> implements RepositoryInterface<T> {
 
+    public Gson gson = new Gson();
     private final String filename;
 
     public JsonRepository(final String filename) {
@@ -47,5 +49,9 @@ public abstract class JsonRepository<T> implements RepositoryInterface<T> {
     @Override
     public boolean checkIfExists(final String id) {
         throw new UnsupportedOperationException("#checkIfExists()");
+    }
+
+    public String getFilename() {
+        return this.filename;
     }
 }

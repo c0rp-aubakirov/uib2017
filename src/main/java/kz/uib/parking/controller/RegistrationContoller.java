@@ -1,8 +1,17 @@
 package kz.uib.parking.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import kz.uib.parking.exception.UserNotFoundException;
+import kz.uib.parking.repository.json.JsonFileSecurityCodeRepository;
+import kz.uib.parking.service.RegistrationService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 /**
  * @author Sanzhar Aubakirov (c0rp.aubakirov@gmail.com)
  */
+@RestController
 public class RegistrationContoller {
 
     /**
@@ -21,6 +30,16 @@ public class RegistrationContoller {
      * @return Возвращает статус регистрации
      */
     public String registerNewUser() {
+
+        // Validation
+
+        final RegistrationService registrationService = new RegistrationService();
+
+
+//        registrationService.registerNewUser();
+
+        // Send security code
+
         return "registration status";
     }
 
@@ -39,7 +58,21 @@ public class RegistrationContoller {
 
      * @return возвращает статус проверки и выдает токен для других API
      */
-    public String checkSecurityCode() {
+    @RequestMapping(method = RequestMethod.POST)
+    public String checkSecurityCode(final HttpServletRequest request) throws UserNotFoundException {
+
+
+        final String phoneNumber = "";
+        final String securityCode = "";
+        final String sha512Password = "";
+
+        // Validation
+
+        final RegistrationService registrationService = new RegistrationService();
+
+        registrationService.checkSecurityCodeValid(securityCode, phoneNumber, sha512Password);
+
+
         return "security token for another API";
     }
 
